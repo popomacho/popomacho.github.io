@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POPO Macho | 東大阪発 パーソナルトレーニング</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Archivo+Black&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        'dark-bg': '#0A0A0A',
+                        'dark-surface': '#141414',
+                        'line': '#06C755',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        display: ['Archivo Black', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-dark-bg text-white font-sans antialiased overflow-x-hidden;
+            }
+        }
+        @layer components {
+            .glass-card {
+                @apply bg-white/5 backdrop-blur-lg border border-white/10;
+            }
+            .text-glow {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            .gold-gradient {
+                background: linear-gradient(135deg, #D4AF37 0%, #F9E79F 50%, #B8860B 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        .selection\:bg-gold ::selection { background-color: #D4AF37; color: black; }
+        
+        /* Simple animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="selection:bg-gold selection:text-black">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="images/logo.png" width="80">
+            </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#top" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">Top</a>
+                <a href="#pain" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">悩み</a>
+                <a href="#solution" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">解決策</a>
+                <a href="#training" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">トレーニング</a>
+                <a href="#monitor" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">モニター</a>
+                <a href="#price" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">料金</a>
+                <a href="#access" class="text-sm uppercase tracking-widest text-white/70 hover:text-gold transition-colors">アクセス</a>
+                <a href="#contact" class="px-6 py-2 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">体験申込み</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="md:hidden text-white p-2">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[70] bg-dark-bg hidden flex flex-col items-center justify-center gap-8 p-6 transition-all duration-300 transform translate-x-full">
+        <button id="menu-close" class="absolute top-6 right-6 text-white p-2">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div class="flex flex-col items-center gap-8">
+            <a href="#top" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">Top</a>
+            <a href="#pain" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">悩み</a>
+            <a href="#solution" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">解決策</a>
+            <a href="#training" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">トレーニング</a>
+            <a href="#monitor" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">モニター</a>
+            <a href="#price" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">料金</a>
+            <a href="#access" class="mobile-link text-2xl font-serif uppercase tracking-[0.2em] text-white/90 hover:text-gold transition-colors whitespace-nowrap">アクセス</a>
+            <a href="#contact" class="mobile-link mt-4 px-12 py-5 bg-gold text-black text-center font-bold text-xl uppercase tracking-widest rounded-xl shadow-xl whitespace-nowrap">体験申込み</a>
+            <a href="https://line.me/R/ti/p/@530qfhhu" target="_blank" rel="noopener noreferrer" class="mobile-link px-12 py-5 bg-line text-white text-center font-bold text-xl uppercase tracking-widest rounded-xl shadow-xl whitespace-nowrap flex items-center gap-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path d="M24 10.304c0-4.58-4.69-8.304-10.478-8.304-5.788 0-10.478 3.724-10.478 8.304 0 4.108 3.725 7.547 8.746 8.191.34.073.805.225.922.517.105.262.069.673.034.938l-.148.888c-.045.268-.21 1.047 1.047.57 1.258-.477 6.786-3.997 9.252-6.85 1.734-1.858 2.105-3.569 2.105-5.254zm-15.987 3.844c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.01h.888c.162 0 .293.131.293.293v.266zm2.337 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.569zm4.593 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-2.144l-1.277 2.135c-.068.113-.189.182-.318.182h-.009c-.129 0-.25-.069-.318-.182l-1.277-2.135v2.144c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.33c.122 0 .236.061.303.163l1.525 2.552 1.525-2.552c.067-.102.181-.163.303-.163h.33c.162 0 .293.131.293.293v3.569zm3.622-1.208c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h1.474c.162 0 .293.131.293.293v.266c0 .162-.131.293-.293.293h-.888v.888h.888c.162 0 .293.131.293.293v.266z"/>
+                </svg>
+                LINEで相談
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <!-- 1. Catch Copy (Hero) -->
+        <section id="top" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-[56px] md:pt-0">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop" alt="Professional Training" class="w-full h-full object-cover opacity-40 scale-105" referrerPolicy="no-referrer">
+                <div class="absolute inset-0 bg-gradient-to-b from-dark-bg/40 via-transparent to-dark-bg"></div>
+            </div>
+
+            <div class="relative z-10 text-center px-4 max-w-5xl fade-in-up">
+                <span class="inline-block mb-6 px-5 py-2 border border-gold/50 rounded-full text-gold text-sm font-bold tracking-[0.2em] uppercase bg-gold/5">
+                    東大阪発　来店・出張パーソナルトレーニング <span class="mx-2 text-white/30">|</span> 無料駐車場完備
+                </span>
+                <h1 class="text-5xl md:text-9xl font-display leading-tight mb-8">
+                    POPO <span class="italic text-gold">Macho</span>
+                </h1>
+                <p class="text-xl md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+                    筋トレ歴30年の圧倒的経験が導く、<br>
+                    あなただけの洗練されたボディメイク。
+                </p>
+                <div class="flex flex-col gap-6 max-w-sm mx-auto md:max-w-none md:flex-row md:justify-center">
+                    <a href="#contact" class="w-full md:w-auto px-12 py-6 bg-gold text-black font-bold text-xl uppercase tracking-widest rounded-xl shadow-2xl active:scale-95 transition-all">
+                        体験申込み 5,000円
+                    </a>
+                    <a href="#monitor" class="w-full md:w-auto px-12 py-6 border border-white/30 bg-white/5 backdrop-blur-sm hover:border-gold transition-colors font-bold text-lg uppercase tracking-widest rounded-xl">
+                        限定モニター募集中
+                    </a>
+                    <a href="https://line.me/R/ti/p/@530qfhhu" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-12 py-6 bg-line text-white font-bold text-lg uppercase tracking-widest rounded-xl shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path d="M24 10.304c0-4.58-4.69-8.304-10.478-8.304-5.788 0-10.478 3.724-10.478 8.304 0 4.108 3.725 7.547 8.746 8.191.34.073.805.225.922.517.105.262.069.673.034.938l-.148.888c-.045.268-.21 1.047 1.047.57 1.258-.477 6.786-3.997 9.252-6.85 1.734-1.858 2.105-3.569 2.105-5.254zm-15.987 3.844c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.01h.888c.162 0 .293.131.293.293v.266zm2.337 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.569zm4.593 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-2.144l-1.277 2.135c-.068.113-.189.182-.318.182h-.009c-.129 0-.25-.069-.318-.182l-1.277-2.135v2.144c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.33c.122 0 .236.061.303.163l1.525 2.552 1.525-2.552c.067-.102.181-.163.303-.163h.33c.162 0 .293.131.293.293v3.569zm3.622-1.208c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h1.474c.162 0 .293.131.293.293v.266c0 .162-.131.293-.293.293h-.888v.888h.888c.162 0 .293.131.293.293v.266z"/>
+                        </svg>
+                        LINEで相談
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+                <i data-lucide="chevron-down" class="text-gold w-8 h-8"></i>
+            </div>
+        </section>
+
+        <!-- 2. Pain Points -->
+        <section id="pain" class="py-24 px-4 bg-dark-surface">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">Are you worried?</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-semibold mb-6">このような悩みは<br class="md:hidden">ありませんか？</h2>
+                    <div class="w-20 h-1 bg-gold mx-auto"></div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">自己流でトレーニングしているが成果が出ない</p>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">年齢とともに体型が崩れてきた</p>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">ダイエットのためのトレーニングがわからない</p>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">ジムに通い始めたが、何をすればいいか分からない</p>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">リバウンドを繰り返してしまう</p>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <i data-lucide="alert-circle" class="text-gold shrink-0 mt-1"></i>
+                        <p class="text-lg md:text-xl text-white/90">一生動ける健康な体を手に入れたい</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Solution (Concept & Service) -->
+        <section id="solution" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">The Solution</span>
+                    <h2 class="text-3xl md:text-5xl font-display mb-8 leading-tight">
+                        POPO Machoが<br class="md:hidden">解決します
+                    </h2>
+                    <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+                        30年の研鑽と実績に基づいた、<br class="md:hidden">科学的かつ実践的なアプローチ。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
+                    <div class="order-2 md:order-1">
+                        <h3 class="text-2xl md:text-4xl font-serif font-semibold mb-8 text-gold">30年の経験が導く最短ルート</h3>
+                        <div class="space-y-6 text-lg md:text-xl text-white/70 leading-relaxed">
+                            <p>
+                                <span class="font-bold text-white">「POPO Macho」</span>は、単なるジムではありません。あと1年で筋トレ歴30年を迎えるベテランが、その膨大な知識と経験を余すことなく提供します。
+                            </p>
+                            <p>
+                                一人ひとりの骨格、体力、ライフスタイルに合わせた最適なプログラムを構築。初心者から上級者まで、確実に結果へ導きます。
+                            </p>
+                            <div class="p-6 bg-gold/10 border-l-4 border-gold italic text-white rounded-r-2xl">
+                                「50歳でもベンチプレス140kg5回の挑戦」<br>
+                                自らが体現し続けるからこそ、伝えられる本物があります。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="images/trainer.png" class="w-full max-w-[400px] mx-auto md:ml-auto md:mr-0">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 md:p-12 rounded-[2rem] border border-white/10">
+                        <i data-lucide="home" class="text-gold mb-6 w-12 h-12"></i>
+                        <h4 class="text-2xl md:text-3xl font-serif font-bold mb-4">ホームジム パーソナル</h4>
+                        <p class="text-lg text-white/60 mb-8">東大阪市吉田のプライベート空間。充実した設備で、誰の目も気にせず集中できます。</p>
+                        <div class="text-3xl font-serif text-gold">¥8,000 <span class="text-sm text-white/40">/ 60min</span></div>
+                    </div>
+                    <div class="glass-card p-8 md:p-12 rounded-[2rem] border border-white/10">
+                        <i data-lucide="car" class="text-gold mb-6 w-12 h-12"></i>
+                        <h4 class="text-2xl md:text-3xl font-serif font-bold mb-4">出張パーソナル</h4>
+                        <p class="text-lg text-white/60 mb-4">ご自宅や指定場所へ伺います。移動時間を節約し、慣れた環境で継続可能です。</p>
+                        <p class="text-sm text-gold mb-6 font-bold">※ダンベル＋ベンチ台持込します</p>
+                        <div class="mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <div class="text-[10px] uppercase tracking-widest text-white/40 mb-2">対象エリア</div>
+                            <div class="text-sm leading-relaxed">東大阪市、八尾市、大阪市、四條畷市、寝屋川市、大東市</div>
+                        </div>
+                        <div class="text-3xl font-serif text-gold">¥10,000 <span class="text-sm text-white/40">/ 60min</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Training Content -->
+        <section id="training" class="py-24 px-4 bg-dark-surface">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">Training Menu</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-semibold mb-8">トレーニング例</h2>
+                    <p class="text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
+                        プロ仕様の設備を使い、効果的な種目を厳選して指導します。
+                    </p>
+                </div>
+
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                        <img src="images/gym1.jpg" alt="Training Equipment 1" class="w-full h-full object-cover" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                        <img src="images/gym2.jpg" alt="Training Equipment 2" class="w-full h-full object-cover" referrerPolicy="no-referrer">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Chest -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            胸 (Chest)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ベンチプレス</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ダンベルベンチプレス</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>インクラインベンチプレス</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ディップス</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ダンベルフライ</li>
+                        </ul>
+                    </div>
+                    <!-- Arms -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            腕 (Arms)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>EZカール</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ダンベルカール</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ハンマーカール</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ライングトライセプスエクステンション</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルトライセプスエクステンション</li>
+                        </ul>
+                    </div>
+                    <!-- Shoulders -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            肩 (Shoulders)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>バーベルショルダープレス</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>フロントレイズ</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>サイドレイズ</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>リアレイズ</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルサイドレイズ</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルリアレイズ</li>
+                        </ul>
+                    </div>
+                    <!-- Back -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            背中 (Back)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>懸垂</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ラットプルダウン</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ダンベルロー</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>バーベルロー</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルロー</li>
+                        </ul>
+                    </div>
+                    <!-- Lower Body -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            足・お尻 (Lower Body)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>スクワット</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ルーマニアンデッドリフト</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>トラップバーデッドリフト</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ヒップスラスト</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ブルガリアンスクワット</li>
+                        </ul>
+                    </div>
+                    <!-- Abs -->
+                    <div class="glass-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-gold font-serif text-xl mb-6 flex items-center gap-3">
+                            <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            腹筋 (Abs)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>腹筋ローラー</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルクランチ</li>
+                            <li class="text-lg text-white/70 flex items-center gap-3"><i data-lucide="chevron-right" class="w-4 h-4 text-gold/50"></i>ケーブルレッグレイズ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Monitor Section -->
+        <section id="monitor" class="py-24 px-4 bg-gold text-black">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <span class="inline-block mb-6 px-5 py-2 border border-black/20 rounded-full text-black text-sm font-bold tracking-widest uppercase">
+                            Limited Offer
+                        </span>
+                        <h2 class="text-4xl md:text-7xl font-serif font-bold mb-8 leading-tight">
+                            モニター<br>
+                            <span class="text-white">限定3名</span>募集
+                        </h2>
+                        <p class="text-xl md:text-2xl mb-12 opacity-90 leading-relaxed font-medium">
+                            劇的な変化を共に作り上げませんか？<br>
+                            特別価格で最高峰の指導を提供いたします。
+                        </p>
+                        
+                        <div class="space-y-6 mb-12">
+                            <div class="flex items-center gap-4 text-lg md:text-xl">
+                                <i data-lucide="check-circle-2" class="w-8 h-8 shrink-0"></i>
+                                <span class="font-bold">写真掲載OKな方 (顔出し不要)</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-lg md:text-xl">
+                                <i data-lucide="check-circle-2" class="w-8 h-8 shrink-0"></i>
+                                <span class="font-bold">週2回必須 (月8回)</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-end gap-6">
+                            <div class="text-xl line-through opacity-50">通常 ¥60,000</div>
+                            <div class="text-6xl md:text-8xl font-serif font-bold">¥45,000</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-8 md:p-12 rounded-[3rem] shadow-2xl">
+                        <h3 class="text-3xl font-serif mb-10 text-center">モニター応募・相談</h3>
+                        <form id="monitor-form" class="space-y-8">
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Name</label>
+                                <input id="monitor-name" type="text" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors" placeholder="お名前">
+                            </div>
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Email</label>
+                                <input id="monitor-email" type="email" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors" placeholder="メールアドレス">
+                            </div>
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Message</label>
+                                <textarea id="monitor-message" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors h-40 resize-none" placeholder="現在の悩みや目標など"></textarea>
+                            </div>
+                            <button id="monitor-submit" type="button" class="w-full py-6 bg-gold text-black font-bold text-xl uppercase tracking-widest rounded-2xl hover:bg-white active:scale-95 transition-all">
+                                モニターに応募する
+                            </button>
+                            <a href="https://line.me/R/ti/p/@530qfhhu" target="_blank" rel="noopener noreferrer" class="w-full py-6 bg-line text-white font-bold text-xl uppercase tracking-widest rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path d="M24 10.304c0-4.58-4.69-8.304-10.478-8.304-5.788 0-10.478 3.724-10.478 8.304 0 4.108 3.725 7.547 8.746 8.191.34.073.805.225.922.517.105.262.069.673.034.938l-.148.888c-.045.268-.21 1.047 1.047.57 1.258-.477 6.786-3.997 9.252-6.85 1.734-1.858 2.105-3.569 2.105-5.254zm-15.987 3.844c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.01h.888c.162 0 .293.131.293.293v.266zm2.337 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.569zm4.593 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-2.144l-1.277 2.135c-.068.113-.189.182-.318.182h-.009c-.129 0-.25-.069-.318-.182l-1.277-2.135v2.144c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.33c.122 0 .236.061.303.163l1.525 2.552 1.525-2.552c.067-.102.181-.163.303-.163h.33c.162 0 .293.131.293.293v3.569zm3.622-1.208c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h1.474c.162 0 .293.131.293.293v.266c0 .162-.131.293-.293.293h-.888v.888h.888c.162 0 .293.131.293.293v.266z"/>
+                                </svg>
+                                LINEで相談する
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Price Section -->
+        <section id="price" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">Pricing Plan</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-semibold mb-8">料金プラン</h2>
+                    <div class="inline-block glass-card px-10 py-6 rounded-3xl border border-gold/30 bg-gold/5">
+                        <span class="text-gold font-bold text-lg">Campaign:</span> 入会金 ¥15,000 → <span class="text-3xl font-serif">¥0</span> <span class="text-sm opacity-60">(3/31まで)</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card rounded-[2.5rem] p-8 md:p-12 border border-white/10">
+                        <h3 class="text-3xl font-serif font-bold mb-10 flex items-center gap-4">
+                            <i data-lucide="home" class="text-gold w-8 h-8"></i> ホームジム
+                        </h3>
+                        <div class="space-y-10">
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Single Session</div>
+                                    <div class="text-xl">60分コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥8,000</div>
+                            </div>
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Monthly (4x)</div>
+                                    <div class="text-xl">月4回コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥32,000</div>
+                            </div>
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Monthly (8x)</div>
+                                    <div class="text-xl">月8回コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥60,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-[2.5rem] p-8 md:p-12 border border-gold/20">
+                        <h3 class="text-3xl font-serif font-bold mb-10 flex items-center gap-4">
+                            <i data-lucide="car" class="text-gold w-8 h-8"></i> 出張パーソナル
+                        </h3>
+                        <div class="space-y-10">
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Single Session</div>
+                                    <div class="text-xl">60分コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥10,000</div>
+                            </div>
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Monthly (4x)</div>
+                                    <div class="text-xl">月4回コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥40,000</div>
+                            </div>
+                            <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                                <div>
+                                    <div class="text-xs text-white/40 uppercase tracking-widest mb-2">Monthly (8x)</div>
+                                    <div class="text-xl">月8回コース</div>
+                                </div>
+                                <div class="text-3xl font-serif text-gold">¥76,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-8 bg-white/5 rounded-3xl border border-white/10 text-center">
+                    <h4 class="font-serif text-2xl mb-4 text-gold">初回体験</h4>
+                    <p class="text-xl text-white/80 mb-4">カウンセリング + トレーニング体験</p>
+                    <div class="text-4xl font-serif mb-4">¥5,000</div>
+                    <p class="text-sm text-white/40">※入会時にキャッシュバック特典あり</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Application (Contact) -->
+        <section id="contact" class="py-24 px-4 bg-dark-surface">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">Contact</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-semibold mb-8">体験申込み・お問い合わせ</h2>
+                    <p class="text-lg text-white/60 leading-relaxed">
+                        まずは体験から始めましょう。<br>
+                        あなたの理想の体作りを全力でサポートします。
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 md:p-12 rounded-[2.5rem] border border-white/10">
+                    <form id="contact-form" class="space-y-8">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Name</label>
+                            <input id="contact-name" type="text" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors" placeholder="お名前">
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Email</label>
+                            <input id="contact-email" type="email" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors" placeholder="メールアドレス">
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-white/40 mb-3 block">Message</label>
+                            <textarea id="contact-message" class="w-full bg-white/5 border-b border-white/20 py-4 text-xl focus:border-gold outline-none transition-colors h-40 resize-none" placeholder="ご希望のコースや目的など"></textarea>
+                        </div>
+                        <button id="contact-submit" type="button" class="w-full py-6 bg-white text-black font-bold text-xl uppercase tracking-widest rounded-2xl hover:bg-gold active:scale-95 transition-all">
+                            メッセージを送信する
+                        </button>
+                        <a href="https://line.me/R/ti/p/@530qfhhu" target="_blank" rel="noopener noreferrer" class="w-full py-6 bg-line text-white font-bold text-xl uppercase tracking-widest rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M24 10.304c0-4.58-4.69-8.304-10.478-8.304-5.788 0-10.478 3.724-10.478 8.304 0 4.108 3.725 7.547 8.746 8.191.34.073.805.225.922.517.105.262.069.673.034.938l-.148.888c-.045.268-.21 1.047 1.047.57 1.258-.477 6.786-3.997 9.252-6.85 1.734-1.858 2.105-3.569 2.105-5.254zm-15.987 3.844c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.01h.888c.162 0 .293.131.293.293v.266zm2.337 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.569zm4.593 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-2.144l-1.277 2.135c-.068.113-.189.182-.318.182h-.009c-.129 0-.25-.069-.318-.182l-1.277-2.135v2.144c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.33c.122 0 .236.061.303.163l1.525 2.552 1.525-2.552c.067-.102.181-.163.303-.163h.33c.162 0 .293.131.293.293v3.569zm3.622-1.208c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h1.474c.162 0 .293.131.293.293v.266c0 .162-.131.293-.293.293h-.888v.888h.888c.162 0 .293.131.293.293v.266z"/>
+                            </svg>
+                            LINEで相談する
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Access -->
+        <section id="access" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-4 block">Location</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-semibold mb-8">アクセス</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-12">
+                        <div class="flex gap-6">
+                            <i data-lucide="map-pin" class="text-gold shrink-0 w-8 h-8"></i>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-white/40 mb-2">Address</div>
+                                <p class="text-xl md:text-2xl leading-relaxed">
+                                    〒578-0924<br>
+                                    大阪府東大阪市吉田2丁目
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <i data-lucide="clock" class="text-gold shrink-0 w-8 h-8"></i>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-white/40 mb-2">Hours</div>
+                                <p class="text-xl md:text-2xl">9:00 AM - 9:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <i data-lucide="car" class="text-gold shrink-0 w-8 h-8"></i>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-white/40 mb-2">Parking</div>
+                                <p class="text-xl md:text-2xl">無料駐車場あり</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <i data-lucide="mail" class="text-gold shrink-0 w-8 h-8"></i>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-white/40 mb-2">Email</div>
+                                <p class="text-xl md:text-2xl break-all">martin09172000@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="https://line.me/R/ti/p/@530qfhhu" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 px-6 py-4 rounded-2xl border border-white/10 hover:border-gold transition-colors bg-white/5">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-line">
+                                        <path d="M24 10.304c0-4.58-4.69-8.304-10.478-8.304-5.788 0-10.478 3.724-10.478 8.304 0 4.108 3.725 7.547 8.746 8.191.34.073.805.225.922.517.105.262.069.673.034.938l-.148.888c-.045.268-.21 1.047 1.047.57 1.258-.477 6.786-3.997 9.252-6.85 1.734-1.858 2.105-3.569 2.105-5.254zm-15.987 3.844c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.01h.888c.162 0 .293.131.293.293v.266zm2.337 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.293c.162 0 .293.131.293.293v3.569zm4.593 0c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-2.144l-1.277 2.135c-.068.113-.189.182-.318.182h-.009c-.129 0-.25-.069-.318-.182l-1.277-2.135v2.144c0 .162-.131.293-.293.293h-.293c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h.33c.122 0 .236.061.303.163l1.525 2.552 1.525-2.552c.067-.102.181-.163.303-.163h.33c.162 0 .293.131.293.293v3.569zm3.622-1.208c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-.888v-.888h.888c.162 0 .293.131.293.293v.302zm0-1.474c0 .162-.131.293-.293.293h-1.474c-.162 0-.293-.131-.293-.293v-3.569c0-.162.131-.293.293-.293h1.474c.162 0 .293.131.293.293v.266c0 .162-.131.293-.293.293h-.888v.888h.888c.162 0 .293.131.293.293v.266z"/>
+                                    </svg>
+                                    <span class="font-bold tracking-widest uppercase text-sm">LINE</span>
+                                </a>
+                                <a href="https://www.instagram.com/popo_macho/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 px-6 py-4 rounded-2xl border border-white/10 hover:border-gold transition-colors bg-white/5">
+                                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                                    <span class="font-bold tracking-widest uppercase text-sm">Instagram</span>
+                                </a>
+                                <a href="https://www.youtube.com/@POPOMacho" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 px-6 py-4 rounded-2xl border border-white/10 hover:border-gold transition-colors bg-white/5">
+                                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                                    <span class="font-bold tracking-widest uppercase text-sm">Youtube</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-[2.5rem] overflow-hidden h-[400px] md:h-[500px] grayscale opacity-80 border border-white/10">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.33234551152!2d135.6214533!3d34.6715611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6001206f6f6f6f6f%3A0x0!2zMzTCsDQwJzE3LjYiTiAxMzXCsDM3JzE3LjIiRQ!5e0!3m2!1sja!2sjp!4v1710300000000!5m2!1sja!2sjp" width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-white/5 bg-dark-surface">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-12">
+                <div class="flex flex-col items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <img src="images/logo.png" width="200">
+                    </div>
+                    <p class="text-white/50 text-center max-w-sm">筋トレ歴30年の経験で、あなたの理想を現実に。</p>
+                </div>
+            
+            <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
+                <a href="#top" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">Top</a>
+                <a href="#pain" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">悩み</a>
+                <a href="#solution" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">解決策</a>
+                <a href="#training" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">トレーニング</a>
+                <a href="#monitor" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">モニター</a>
+                <a href="#price" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">料金</a>
+                <a href="#access" class="text-sm uppercase tracking-widest text-white/50 hover:text-gold transition-colors">アクセス</a>
+            </div>
+
+            <div class="text-[10px] uppercase tracking-[0.3em] text-white/30 text-center font-bold">
+                © 2024 POPO Macho. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark-bg/95', 'backdrop-blur-md', 'py-3');
+                navbar.classList.remove('bg-transparent', 'py-5');
+            } else {
+                navbar.classList.remove('bg-dark-bg/95', 'backdrop-blur-md', 'py-3');
+                navbar.classList.add('bg-transparent', 'py-5');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            if (isOpen) {
+                mobileMenu.classList.add('translate-x-full');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+            } else {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => mobileMenu.classList.remove('translate-x-full'), 10);
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission handlers
+        const trainerEmail = 'martin09172000@gmail.com';
+
+        function handleFormSubmit(buttonId, nameId, emailId, messageId, subject) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+
+            button.addEventListener('click', () => {
+                const name = document.getElementById(nameId).value;
+                const email = document.getElementById(emailId).value;
+                const message = document.getElementById(messageId).value;
+
+                if (!name || !email || !message) {
+                    alert('全ての項目を入力してください。');
+                    return;
+                }
+
+                const body = `お名前: ${name}\nメールアドレス: ${email}\n\n内容:\n${message}`;
+                const mailtoUrl = `mailto:${trainerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                window.location.href = mailtoUrl;
+            });
+        }
+
+        handleFormSubmit('monitor-submit', 'monitor-name', 'monitor-email', 'monitor-message', 'モニター応募・相談');
+        handleFormSubmit('contact-submit', 'contact-name', 'contact-email', 'contact-message', '体験申込み・お問い合わせ');
+    </script>
+</body>
+</html>
